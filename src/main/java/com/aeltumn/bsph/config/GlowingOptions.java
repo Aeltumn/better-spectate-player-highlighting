@@ -40,7 +40,7 @@ public class GlowingOptions {
             "bsph.options.show_invisibility.name",
             OptionInstance.cachedConstantTooltip(
                     Component.translatable("bsph.options.show_invisibility.tooltip")),
-            GlowingConfig.get().showGlowing,
+            GlowingConfig.get().showInvisibility,
             (newValue) -> {
                 var config = GlowingConfig.get();
                 config.showInvisibility = newValue;

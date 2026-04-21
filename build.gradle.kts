@@ -18,7 +18,6 @@ dependencies {
 	implementation("net.fabricmc:fabric-loader:${providers.gradleProperty("loader_version").get()}")
 	implementation("net.fabricmc.fabric-api:fabric-api:${providers.gradleProperty("fabric_api_version").get()}")
 	implementation("com.terraformersmc:modmenu:${providers.gradleProperty("mod_menu_version").get()}")
-	
 }
 
 tasks.processResources {
@@ -41,6 +40,7 @@ java {
 
 tasks.jar {
 	inputs.property("projectName", project.name)
+	archiveBaseName = "better-spectate-player-highlighting"
 
 	from("LICENSE") {
 		rename { "${it}_${project.name}" }

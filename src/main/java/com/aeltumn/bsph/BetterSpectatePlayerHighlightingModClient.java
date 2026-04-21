@@ -5,7 +5,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.resources.Identifier;
@@ -101,7 +101,7 @@ public class BetterSpectatePlayerHighlightingModClient implements ClientModIniti
      */
     private void register(String translationKey, Integer code, List<ChatFormatting> colors) {
         var key = new KeyMapping(translationKey, InputConstants.Type.KEYSYM, code == null ? InputConstants.UNKNOWN.getValue() : code, category);
-        KeyBindingHelper.registerKeyBinding(key);
+        KeyMappingHelper.registerKeyMapping(key);
         keybinds.put(key, colors);
     }
 }

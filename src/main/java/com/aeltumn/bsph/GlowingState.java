@@ -3,6 +3,7 @@ package com.aeltumn.bsph;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.scores.TeamColor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,19 +14,19 @@ import java.util.List;
 public class GlowingState {
     public static GlowingState INSTANCE = new GlowingState();
 
-    private List<ChatFormatting> glowingTeams = new ArrayList<>();
+    private List<TeamColor> glowingTeams = new ArrayList<>();
 
     /**
      * Sets the glowing teams to the given list.
      */
-    public void setGlowingTeams(List<ChatFormatting> glowingTeams) {
+    public void setGlowingTeams(List<TeamColor> glowingTeams) {
         this.glowingTeams = glowingTeams;
     }
 
     /**
      * Returns all teams that are currently glowing.
      */
-    public List<ChatFormatting> getGlowingTeams() {
+    public List<TeamColor> getGlowingTeams() {
         return glowingTeams;
     }
 
@@ -46,6 +47,7 @@ public class GlowingState {
         if (player == null || !player.getAbilities().mayfly || entity.getTeam() == null) return false;
 
         // Check that the team color is in the glowing teams list
-        return GlowingState.INSTANCE.getGlowingTeams().contains(entity.getTeam().getColor());
+        var color = entity.getTeam().getColor();
+        return color.filter(teamColor -> GlowingState.INSTANCE.getGlowingTeams().contains(teamColor)).isPresent();
     }
 }

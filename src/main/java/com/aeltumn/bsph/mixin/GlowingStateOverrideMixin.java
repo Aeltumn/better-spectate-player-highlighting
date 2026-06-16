@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.entity.Entity;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -19,12 +20,12 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(EntityRenderer.class)
 public class GlowingStateOverrideMixin {
 
-    @WrapOperation(method = "extractRenderState", at = @At(value = "FIELD", target = "Lnet/minecraft/client/renderer/entity/state/EntityRenderState;outlineColor:I"))
+    @WrapOperation(method = "extractRenderState", at = @At(value = "FIELD", target = "Lnet/minecraft/client/renderer/entity/state/EntityRenderState;outlineColor:I", opcode = Opcodes.PUTFIELD))
     private <T extends Entity> void modifyGlowingColor(
             EntityRenderState instance,
             int value,
             Operation<Void> original,
-            @Local(argsOnly = true) T entity) {
+            @Local(argsOnly = true, name = "entity") T entity) {
         if (GlowingState.shouldShowGlowing(entity)) {
             var baseColor = ARGB.opaque(entity.getTeamColor());
             var config = GlowingConfig.get();
